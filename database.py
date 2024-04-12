@@ -59,3 +59,12 @@ class Database:
         for alteration in alterations:
             sql = f"ALTER TABLE {table_name} {alteration}"
             self.execute(sql)
+
+    def update_record(self, table, primary_key, pk_value, **kwargs):
+        set_clause = ', '.join(f"{col} = ?" for col in kwargs.keys())
+        sql = f"UPDATE {table} SET {set_clause} WHERE {primary_key} = ?"
+        self.execute(sql, [str(val) for val in kwargs.values()] + [pk_value])
+
+    def delete_record(self, table, primary_key, pk_value):
+        sql = f"DELETE FROM {table} WHERE {primary_key} = ?"
+        self.execute(sql, (pk_value,))

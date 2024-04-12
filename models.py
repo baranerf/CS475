@@ -56,3 +56,13 @@ class Model(metaclass=ModelMeta):
                 setattr(self, field_name, value)
             else:
                 raise AttributeError(f"{field_name} is not a valid field name.")
+
+    def save(self):
+        fields = {}
+        for field_name, field in self.__class__.__dict__.items():
+            if isinstance(field, AbstractField):
+                fields[field_name] = getattr(self, field_name)
+        self.objects.update(self, **fields)
+
+    def delete(self):
+        self.objects.delete(self)

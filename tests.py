@@ -188,3 +188,36 @@ class ORMTest(TestCase):
         self.assertEqual(len(TestModel.objects.filter(age=23)), 2)
         self.assertEqual(len(TestModel.objects.filter(age=18)), 1)
         self.assertEqual(len(TestModel.objects.filter(age=24)), 0)
+
+    def test_model_save(self):
+        class TestModel(models.Model):
+            id = fields.UUIDField(primary_key=True)
+            name = fields.StringField()
+
+            class Meta:
+                db = self.db
+
+        test_id = uuid4()
+        instance = TestModel.objects.create(id=test_id, name="Baran")
+        self.assertIsNotNone(instance)
+        instance.name = "Yazdan"
+        instance.save()
+
+        instance_2 = TestModel.objects.get(pk=test_id)
+        self.assertEqual(instance.name, "Yazdan")
+        self.assertEqual(instance_2.name, "Yazdan")
+
+    def test_model_delete(self):
+        class TestModel(models.Model):
+            id = fields.UUIDField(primary_key=True)
+            name = fields.StringField()
+
+            class Meta:
+                db = self.db
+
+        test_id = uuid4()
+        instance = TestModel.objects.create(id=test_id, name="Baran")
+        self.assertIsNotNone(instance)
+        self.assertEqual(len(TestModel.objects.all()), 1)
+        instance.delete()
+        self.assertEqual(len(TestModel.objects.all()), 0)
