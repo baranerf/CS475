@@ -62,7 +62,7 @@ class Model(metaclass=ModelMeta):
         for field_name, field in self.__class__.__dict__.items():
             if isinstance(field, AbstractField):
                 fields[field_name] = getattr(self, field_name)
-        self.objects.update(self, **fields)
+        self.objects._update(self, **fields)
 
     def delete(self):
-        self.objects.delete(self)
+        self.objects._delete(self)

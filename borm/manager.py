@@ -62,7 +62,7 @@ class Manager:
             for row in rows
         ]
 
-    def update(self, instance, **kwargs):
+    def _update(self, instance, **kwargs):
         for field_name, value in kwargs.items():
             if hasattr(instance, field_name):
                 field = getattr(self.model, field_name)
@@ -75,6 +75,6 @@ class Manager:
             self.model.__name__, instance._primary_key, str(getattr(instance, instance._primary_key)), **kwargs
         )
 
-    def delete(self, instance):
+    def _delete(self, instance):
         self.db.delete_record(self.model.__name__, instance._primary_key, str(getattr(instance, instance._primary_key)))
         del instance
