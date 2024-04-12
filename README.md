@@ -10,8 +10,9 @@ The first step to is to design your models (tables). For each model you can inhe
 fields as class attributes of available fields from the `fields` module.
 
 ```python
-from models import Model
-from fields import UUIDField, StringField, IntegerField
+from borm import Model
+from borm.fields import UUIDField, StringField, IntegerField
+
 
 class MyModel(Model):
     id = UUIDField(primary_key=True)

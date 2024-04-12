@@ -2,10 +2,7 @@ from pathlib import Path
 from unittest import TestCase
 from uuid import uuid4, UUID
 
-import database
-import fields
-import manager
-import models
+from borm import manager, database, models, fields
 
 
 class DBTest(TestCase):

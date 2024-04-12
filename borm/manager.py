@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 from typing import TYPE_CHECKING
 
-from database import Database
+from .database import Database
 
 if TYPE_CHECKING:
     from models import Model

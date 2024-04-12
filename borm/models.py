@@ -1,6 +1,6 @@
-from fields import AbstractField
-from manager import Manager
-from database import Database
+from .fields import AbstractField
+from .manager import Manager
+from .database import Database
 
 
 class ModelMeta(type):
@@ -12,7 +12,7 @@ class ModelMeta(type):
             new_attrs[attr_name] = attr_value
 
         db = getattr(attrs.get("Meta"), "db", Database())
-        objects = getattr(attrs.get("Meta"), "objects", Manager)
+        objects = getattr(attrs.get("Meta"), "objects", Manager) or Manager
 
         new_class = super().__new__(cls, name, bases, new_attrs)
         new_class.objects = objects(new_class, db)
@@ -45,7 +45,7 @@ class Model(metaclass=ModelMeta):
         verbose_name = None
         verbose_name_plural = None
         db: Database = None
-        object: Manager = None
+        objects: Manager = None
 
     def __init__(self, **kwargs):
         for field_name, value in kwargs.items():
