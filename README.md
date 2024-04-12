@@ -4,6 +4,13 @@ This project is a simple, stand-alone and lightweight implementation of an Objec
 The ORM is a library that allows developers to interact with a relational database using Python objects. 
 The ORM will handle the mapping of Python objects to database tables and vice versa.
 
+## Installation
+You can install the ORM by running the following command:
+
+```bash
+pip install borm
+```
+
 ## How to use
 
 The first step to is to design your models (tables). For each model you can inherit from `models.Model` and define its
@@ -73,7 +80,7 @@ my_model.save()
 Finally, you can delete a model instance by calling the `delete` method.
 
 ```python
-my_model.delete()
+my_model._delete()
 ```
 
 ## Unit Testing
